@@ -26,7 +26,7 @@ public class NewDAO extends AbtractDAO<NewModel> implements INewDAO {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(long id) {
 		String sql="DELETE from news WHERE id =?";
 		this.update(sql, id);
 		

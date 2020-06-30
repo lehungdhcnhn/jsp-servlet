@@ -14,6 +14,7 @@ import com.dhcnhn.constant.SystemConstant;
 import com.dhcnhn.model.NewModel;
 import com.dhcnhn.paging.PageRequest;
 import com.dhcnhn.paging.Pageble;
+import com.dhcnhn.service.ICategoryService;
 import com.dhcnhn.service.INewService;
 import com.dhcnhn.sort.sorter;
 import com.dhcnhn.utils.FormUtil;
@@ -24,15 +25,38 @@ public class NewController extends HttpServlet {
 	private static final long serialVersionUID = 2686801510274002166L;
 	@Inject
 	private INewService newService;
+	
+	@Inject
+	private ICategoryService categorySerVice;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		NewModel model = FormUtil.toModel(NewModel.class, request);
-		Pageble pageble = new PageRequest(model.getPage(),model.getMaxPageItem(),new sorter(model.getSortName(), model.getSortBy()));
-		model.setListResult(newService.findAll(pageble));
-		model.setTotalItem(newService.getTotalItem());
-		model.setTotalPage((int)Math.ceil((double)model.getTotalItem()/model.getMaxPageItem()));
+		String view ="";
+		if(model.getType().equals(SystemConstant.LIST))
+		{
+			Pageble pageble = new PageRequest(model.getPage(),model.getMaxPageItem(),new sorter(model.getSortName(), model.getSortBy()));
+			model.setListResult(newService.findAll(pageble));
+			model.setTotalItem(newService.getTotalItem());
+			model.setTotalPage((int)Math.ceil((double)model.getTotalItem()/model.getMaxPageItem()));
+			view="/views/admin/new/list.jsp";
+		
+		}
+		else if(model.getType().equals(SystemConstant.EDIT))
+		{
+			if(model.getId()!=null)
+			{
+				model= newService.findOne(model.getId());
+			}
+			else
+			{
+				
+			}
+			request.setAttribute("categories", categorySerVice.findAll());
+			view="/views/admin/new/Edit.jsp";
+			
+		}
 		request.setAttribute(SystemConstant.MODEL, model);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/new/list.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 	

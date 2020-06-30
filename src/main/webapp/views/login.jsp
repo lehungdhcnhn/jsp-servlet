@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,13 @@
 	<div class="container">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
-		<form action="<c:url value='/dang-nhap'/>" id="formLogin" method="POST">
+		<c:if test="${ not empty message}">
+			<div class="alert alert-${alert}">
+ 				 ${message} 
+			</div>
+		</c:if>
+			
+			
 			<div class="card-header">
 				<h3>Sign In</h3>
 				<div class="d-flex justify-content-end social_icon">
@@ -20,12 +27,12 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form>
+				<form action="<c:url value='/dang-nhap'/>" id="formLogin" method="post" >
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username" name ="userName">
+						<input type="text" class="form-control" placeholder="userName" name ="userName">
 						
 					</div>
 					<div class="input-group form-group">
@@ -41,6 +48,7 @@
 					<div class="form-group">
 						<input type="submit" value="Login" class="btn float-right login_btn">
 					</div>
+					
 				</form>
 			</div>
 			<div class="card-footer">
@@ -51,7 +59,7 @@
 					<a href="#">Forgot your password?</a>
 				</div>
 			</div>
-			</form>
+			
 		</div>
 	</div>
 </div>

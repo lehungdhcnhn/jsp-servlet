@@ -9,18 +9,24 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.dhcnhn.dao.IGenericDAO;
 import com.dhcnhn.mapper.RowMapper;
 
 public class AbtractDAO<T> implements IGenericDAO<T> {
+	ResourceBundle resouceBundle = ResourceBundle.getBundle("db");
 
 	public Connection getConnection() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			/*Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/newservlet";
 			String user = "root";
-			String password = "123@abc";
+			String password = "123@abc";*/
+			Class.forName(resouceBundle.getString("driverName"));
+			String url =resouceBundle.getString("url");
+			String user=resouceBundle.getString("user");
+			String password= resouceBundle.getString("password");
 			return DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			return null;

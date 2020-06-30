@@ -17,7 +17,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="<c:url value='/template/Paging/jquery.twbsPagination.js' />"></script>
     
-    <script src="<c:url value='/ckeditor/ckeditor.js' />"></script>
+
 </head>
 <body class="no-skin">
 	<!-- header -->

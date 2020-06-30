@@ -10,7 +10,7 @@ public interface INewDAO extends IGenericDAO<NewModel>{
 	NewModel findOne(Long id);
 	List<NewModel> findByCategoryID(Long categoryId); 
 	Long save(NewModel newModel);
-	void delete(Long id);
+	void delete(long id);
 	void update(NewModel updateNew);
 	int getTotalItem();
 }
